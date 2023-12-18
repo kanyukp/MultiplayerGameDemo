@@ -26,9 +26,9 @@ public class PlayerResource {
 
     @PostMapping("/add")
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
-        System.out.println("Trying to Add Player : ");
+        //System.out.println("Trying to Add Player : ");
         Player newPlayer = playerService.addPlayer(player);
-        System.out.println("After call " + newPlayer);
+        //System.out.println("After call " + newPlayer);
         return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
     }
 
@@ -57,10 +57,10 @@ public class PlayerResource {
 //    }
     @GetMapping("/find/")
     public ResponseEntity<Player> findPlayer(@RequestParam String username, @RequestParam String password ) {
-        System.out.println("In Get");
+        //System.out.println("In Get");
         Player foundPlayer = playerService.findPlayer(username, password);
 
-        System.out.println(foundPlayer);
+        //System.out.println(foundPlayer);
 
         return new ResponseEntity<>(foundPlayer, HttpStatus.OK);
     }

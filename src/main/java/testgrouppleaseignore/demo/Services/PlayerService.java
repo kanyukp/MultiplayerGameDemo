@@ -25,12 +25,12 @@ public class PlayerService {
     }
 
     public Player addPlayer(Player player){
-        System.out.println("In service Trying to add Player" + player);
+        //System.out.println("In service Trying to add Player" + player);
         return playerRepo.save(player);
     }
 
     public Player updatePlayer(Player player) {
-        System.out.println("In Service Trying to update Player" + player);
+        //System.out.println("In Service Trying to update Player" + player);
         return playerRepo.save(player);
     }
 
@@ -39,11 +39,11 @@ public class PlayerService {
     }
 
     public Player findPlayer(String username) {
-        System.out.println("Looking for player: " + username);
+        //System.out.println("Looking for player: " + username);
         return playerRepo.findPlayerByUsername(username).orElseThrow( () -> new PlayerNotFoundException("Player by username : " + username + " was not found"));
     }
     public Player findPlayer(String username, String password) {
-        System.out.println("Looking for player: " + username + " password: " + password);
+        //System.out.println("Looking for player: " + username + " password: " + password);
         return playerRepo.findPlayerByUsernameAndPassword(username, password).orElseThrow( () -> new PlayerNotFoundException("Player by username : " + username + " and password: " + password + " was not found"));
     }
 
