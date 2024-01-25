@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import testgrouppleaseignore.demo.Services.PlayerService;
-import testgrouppleaseignore.demo.Player;
+import testgrouppleaseignore.demo.Models.Player;
 
 import java.util.List;
 

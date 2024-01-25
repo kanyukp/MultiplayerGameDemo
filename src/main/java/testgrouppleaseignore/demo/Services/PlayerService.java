@@ -3,12 +3,10 @@ package testgrouppleaseignore.demo.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import testgrouppleaseignore.demo.Exceptions.PlayerNotFoundException;
-import testgrouppleaseignore.demo.Player;
+import testgrouppleaseignore.demo.Models.Player;
 import testgrouppleaseignore.demo.Repos.PlayerRepo;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PlayerService {

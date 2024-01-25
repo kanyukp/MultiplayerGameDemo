@@ -1,4 +1,4 @@
-package testgrouppleaseignore.demo;
+package testgrouppleaseignore.demo.Models;
 
 import javax.persistence.*;
 import java.io.Serializable;
