@@ -1,0 +1,15 @@
+<form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+  <div>
+      <label>
+        Username:
+      </label>
+      <input id="username" type="text" formControlName="username">
+      <label>
+        Password:
+      </label>
+      <input id="password" type="text" formControlName="password">
+    </div>
+  
+    <button Name="exist" class="button" type="submit">Existing User</button>
+    <button Name="add" class="button" type="submit" (onclick)="newUser()">New User</button>
+</form>

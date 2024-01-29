@@ -1,0 +1,4 @@
+<app-login-comp *ngIf="!play" (player)="addPlayer($event)" (play)="playStart($event)"></app-login-comp>
+<app-game *ngIf="play" [currentPlayer]="player"></app-game>
+
+
