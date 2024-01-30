@@ -3,8 +3,10 @@ package testgrouppleaseignore.demo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import testgrouppleaseignore.demo.Models.UpdateInput;
 import testgrouppleaseignore.demo.Services.PlayerService;
 import testgrouppleaseignore.demo.Models.Player;
+import testgrouppleaseignore.demo.Services.UpdateService;
 
 import java.util.List;
 
@@ -12,10 +14,12 @@ import java.util.List;
 @RequestMapping("/player")
 public class PlayerResource {
     private final PlayerService playerService;
+    private final UpdateService updateService;
 
-    public PlayerResource(PlayerService playerService)
+    public PlayerResource(PlayerService playerService, UpdateService updateService)
     {
-        this. playerService = playerService;
+        this.playerService = playerService;
+        this.updateService = updateService;
     }
 
     @GetMapping("/all")
@@ -32,7 +36,7 @@ public class PlayerResource {
         return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @GetMapping("/update")
     public ResponseEntity<Player> updatePlayer(@RequestBody Player player) {
         //System.out.println("Trying to update player :  ");
         Player updatePlayer = playerService.updatePlayer(player);
@@ -55,13 +59,4 @@ public class PlayerResource {
 //
 //        return new ResponseEntity<>(foundPlayer, HttpStatus.OK);
 //    }
-    @GetMapping("/find/")
-    public ResponseEntity<Player> findPlayer(@RequestParam String username, @RequestParam String password ) {
-        //System.out.println("In Get");
-        Player foundPlayer = playerService.findPlayer(username, password);
-
-        //System.out.println(foundPlayer);
-
-        return new ResponseEntity<>(foundPlayer, HttpStatus.OK);
-    }
 }

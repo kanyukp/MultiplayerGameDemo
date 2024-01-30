@@ -5,6 +5,15 @@ import { PlayerService } from '../player.service';
 import { LoginComponent } from '../login-comp/login.component';
 import { ProjectileService } from '../projectile.service';
 import { Projectile } from '../projectile';
+import { UpdateInput } from '../update';
+import { UpdateService } from '../update.service';
+
+const RIGHT = 0;
+const DOWN = 1;
+const LEFT = 2;
+const UP = 3;
+const SHOOT = 1;
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -49,7 +58,9 @@ export class GameComponent implements OnInit, OnChanges {
   playerSprites: CharSprite[] = [];
   projectileSprites: ProjectileSprite[] = [];
 
-  constructor(private ngZone: NgZone, private playerService: PlayerService, private projectileService: ProjectileService){
+  update: UpdateInput = {} as UpdateInput;
+
+  constructor(private ngZone: NgZone, private playerService: PlayerService, private projectileService: ProjectileService, private updateService: UpdateService){
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -225,38 +236,59 @@ export class GameComponent implements OnInit, OnChanges {
     if (this.keys.w.pressed == true ) {
       this.directionVectorPlayer = [0,1];
       this.lastDirection = this.directionVectorPlayer;
+      this.update.movement = UP;
     } else if (this.keys.s.pressed == true){
       this.directionVectorPlayer = [0,-1];
       this.lastDirection = this.directionVectorPlayer;
+      this.update.movement = DOWN;
     } else if (this.keys.a.pressed == true){
       this.directionVectorPlayer = [1,0];
       this.lastDirection = this.directionVectorPlayer;
+      this.update.movement = LEFT;
     } else if (this.keys.d.pressed == true){
       this.directionVectorPlayer = [-1,0];
       this.lastDirection = this.directionVectorPlayer;
+      this.update.movement = RIGHT;
     } else {
       this.directionVectorPlayer = [0,0];
     }
     if (this.keys.space.pressed == true ) {
-      let projectile = new ProjectileSprite(this.currentPlayer.xpos, this.currentPlayer.ypos, this.projectileImage, this.c, this.transform, this.lastDirection);
-      this.projectileSprites.push(projectile);
+      // let projectile = new ProjectileSprite(this.currentPlayer.xpos, this.currentPlayer.ypos, this.projectileImage, this.c, this.transform, this.lastDirection);
+      // this.projectileSprites.push(projectile);
+      this.update.action = SHOOT;
     }
 
-    for(let i = 0; i < this.sprites.length; i++){
-      this.sprites[i].transform.x += (this.directionVectorPlayer[0] * 3);
-      this.sprites[i].transform.y += (this.directionVectorPlayer[1] * 3);
-    }
+    // for(let i = 0; i < this.sprites.length; i++){
+    //   this.sprites[i].transform.x += (this.directionVectorPlayer[0] * 3);
+    //   this.sprites[i].transform.y += (this.directionVectorPlayer[1] * 3);
+    // }
 
-    for(let j = 0; j < this.playerSprites.length; j++){
-      //this.playerSprites[j].x += (directionVector[0] * 3);
-      //this.playerSprites[j].y += (directionVector[1] * 3);
-    }
+    // for(let j = 0; j < this.playerSprites.length; j++){
+    //   //this.playerSprites[j].x += (directionVector[0] * 3);
+    //   //this.playerSprites[j].y += (directionVector[1] * 3);
+    // }
     
-    this.currentPlayer.xpos += (this.directionVectorPlayer[0] * -3);
-    this.currentPlayer.ypos += (this.directionVectorPlayer[1] * -3);
+    // this.currentPlayer.xpos += (this.directionVectorPlayer[0] * -3);
+    // this.currentPlayer.ypos += (this.directionVectorPlayer[1] * -3);
 
-    this.updatePlayer(this.currentPlayer);
+    // this.updatePlayer(this.currentPlayer);
+    this.update.username = this.currentPlayer.username;
+    this.updateGame(this.update);
 
+  }
+  updateGame(update: UpdateInput) {
+    this.updateService.getUpdates(update).subscribe(
+      (response) => {
+        if(response.currPlayer)
+        this.currentPlayer = response.currPlayer;
+
+        if(response.players)
+        this.players = response.players;
+
+        if(response.projectiles)
+        this.projectiles = response.projectiles;
+      }
+    )
   }
 
   draw(){

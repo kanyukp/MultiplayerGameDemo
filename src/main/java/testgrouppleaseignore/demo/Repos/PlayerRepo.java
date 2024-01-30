@@ -22,7 +22,4 @@ public interface PlayerRepo extends JpaRepository<Player, Long> {
     @Query("select s from Player s where s.username = ?1")
     Optional<Player> findPlayerByUsername(String username);
 
-    @Query("select s from Player s where s.username = ?1 and s.password = ?2")
-    Optional<Player> findPlayerByUsernameAndPassword(String username, String password);
-
 }

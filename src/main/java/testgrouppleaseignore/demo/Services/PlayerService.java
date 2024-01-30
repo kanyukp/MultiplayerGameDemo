@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import testgrouppleaseignore.demo.Exceptions.PlayerNotFoundException;
 import testgrouppleaseignore.demo.Models.Player;
 import testgrouppleaseignore.demo.Repos.PlayerRepo;
+import testgrouppleaseignore.demo.Repos.UpdateRepo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class PlayerService {
     private final PlayerRepo playerRepo;
 
     @Autowired
-    public PlayerService(PlayerRepo playerRepo){
+    public PlayerService(PlayerRepo playerRepo, UpdateRepo updateRepo){
         this.playerRepo = playerRepo;
     }
 
@@ -40,10 +41,4 @@ public class PlayerService {
         //System.out.println("Looking for player: " + username);
         return playerRepo.findPlayerByUsername(username).orElseThrow( () -> new PlayerNotFoundException("Player by username : " + username + " was not found"));
     }
-    public Player findPlayer(String username, String password) {
-        //System.out.println("Looking for player: " + username + " password: " + password);
-        return playerRepo.findPlayerByUsernameAndPassword(username, password).orElseThrow( () -> new PlayerNotFoundException("Player by username : " + username + " and password: " + password + " was not found"));
-    }
-
-
 }

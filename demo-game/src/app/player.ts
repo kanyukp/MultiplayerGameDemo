@@ -1,6 +1,7 @@
 export interface Player {
     username: string;
-    password: string;
-    xpos?: number;
-    ypos?: number;
+    xpos: number;
+    ypos: number;
+    hp: number;
+    direction: number; 
 }

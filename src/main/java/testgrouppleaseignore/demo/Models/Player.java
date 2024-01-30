@@ -3,6 +3,8 @@ package testgrouppleaseignore.demo.Models;
 import javax.persistence.*;
 import java.io.Serializable;
 
+import static testgrouppleaseignore.demo.Constants.*;
+
 @Entity
 public class Player implements Serializable {
 
@@ -15,22 +17,24 @@ public class Player implements Serializable {
     @Column(nullable = false,updatable = false,length = 16)
     private String username;
 
-//    private String username;
-    @Column(nullable = false,updatable = false,length = 16)
-    private String password;
     private int Xpos;
 
 
     private int Ypos;
 
+    private int hp;
+
+    private int direction;
+
     public Player(){}
 
 
 
-    public Player(String username, String password, int x, int y)
+    public Player(String username, int x, int y)
     {
         this.username = username;
-        this.password = password;
+        //this.password = password;
+        this.direction = DOWN;
         this.Xpos = x;
         this.Ypos = y;
     }
@@ -54,13 +58,6 @@ public class Player implements Serializable {
     }
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getPassword() {
-        return password;
     }
 
     @Override
